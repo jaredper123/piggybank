@@ -1,0 +1,12 @@
+{% extends "transactions/base.html" %}
+
+{% block content %}
+    <div class="text-center mt-4">
+        <h2>Register</h2>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+{% endblock %}
