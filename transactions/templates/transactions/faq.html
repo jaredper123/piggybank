@@ -1,0 +1,122 @@
+{% extends "transactions/base.html" %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Frequently Asked Questions</h1>
+
+        <div class="accordion" id="faqAccordion">
+            <!-- Question 1 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading1">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                            What are different types of investments?
+                        </button>
+                    </h2>
+                </div>
+                <div id="faqCollapse1" class="collapse" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                    <div class="card-body">
+                        Answer: Investments are ways to make your money grow. There are several types of investments, such as:
+                        - Stocks: Owning a piece of a company, and hoping the company does well so your investment grows.
+                        - Bonds: Lending your money to a company or government, and they pay you interest.
+                        - Real Estate: Buying property and hoping its value increases over time.
+                        - Savings Account: Storing money in a bank and earning interest. It's safe but may have lower returns.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading2">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                            Why should I invest in a savings account?
+                        </button>
+                    </h2>
+                </div>
+                <div id="faqCollapse2" class="collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                    <div class="card-body">
+                        Answer: A savings account is like a safe place to keep your money. It's a good option because:
+                        - It's safe: Your money is protected by the bank.
+                        - You earn interest: The bank pays you a little extra money over time.
+                        - It's liquid: You can get your money out whenever you need it, making it great for emergencies or short-term goals.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading3">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                            What benefits does a checking account have?
+                        </button>
+                    </h2>
+                </div>
+                <div id="faqCollapse3" class="collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                    <div class="card-body">
+                        Answer: A checking account is useful for everyday spending. It offers:
+                        - Easy access: You can use a debit card or checks to pay for things.
+                        - Bill payments: You can set up automatic bill payments.
+                        - Direct deposit: Your salary can be directly deposited into your checking account.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading4">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                            Why should I invest in stocks? What is the time commitment?
+                        </button>
+                    </h2>
+                </div>
+                <div id="faqCollapse4" class="collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
+                    <div class="card-body">
+                        Answer: Investing in stocks can potentially lead to higher returns, but it comes with risks. The time commitment varies:
+                        - Long-term: If you buy and hold, you can wait many years for your investment to grow.
+                        - Short-term: If you actively trade, it may demand daily attention.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading5">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
+                            Why should I invest in bonds? What is the time commitment?
+                        </button>
+                    </h2>
+                </div>
+                <div id="faqCollapse5" class="collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
+                    <div class="card-body">
+                        Answer: Investing in bonds is more stable but offers lower returns. Time commitment can be:
+                        - Fixed-term: You lend money for a specific period and get paid when it matures.
+                        - Indefinite: Some bonds have no set maturity date.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="card">
+                <div class="card-header" id="faqHeading6">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse6" aria-expanded="false" aria-controls="faqCollapse6">
+                            What is liquidity?
+                        </button>
+                    </h2>
+                </div>
+                <div id="faqCollapse6" class="collapse" aria-labelledby="faqHeading6" data-bs-parent="#faqAccordion">
+                    <div class="card-body">
+                        Answer: Liquidity means how quickly you can access your money. Savings accounts are highly liquid because you can withdraw funds anytime. Real estate, on the other hand, may have lower liquidity because selling property can take time.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more questions and answers following the same format -->
+
+        </div>
+    </div>
+{% endblock %}

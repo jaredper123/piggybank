@@ -3,70 +3,89 @@
 {% block content %}
     <div class="text-center mt-4">
         <h1 class="mb-4">Piggy Bank App</h1>
-        <p class="lead">Current Balance: ${{ balance|floatformat:2 }}</p>
+        {% if user.is_authenticated %}
+            <p class="lead">Current Balance: ${{ balance|floatformat:2 }}</p>
+        {% else %}
+            <p class="lead">Welcome to the Piggy Bank App</p>
+        {% endif %}
     </div>
 
-    <div class="row mt-5">
-        <div class="col-md-6">
-            <form method="POST" action="{% url 'deposit' %}" class="mb-4">
-                {% csrf_token %}
-                <h2>Deposit</h2>
-                <div class="form-group">
-                    <label for="amount">Amount: $</label>
-                    <input type="number" name="amount" step="0.01" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="reason">Reason:</label>
-                    <input type="text" name="reason" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="category">Category:</label>
-                    <select name="category" class="form-control">
-                        <option value="food">Food</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="toys">Toys</option>
-                        <option value="big-purchase">Big Purchase</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-success">Deposit</button>
-            </form>
+    {% if user.is_authenticated %}
+        <!-- Display Piggy Bank information and transaction history for logged-in users -->
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <form method="POST" action="{% url 'deposit' %}" class="mb-4">
+                    {% csrf_token %}
+                    <h2>Deposit</h2>
+                    <div class="form-group">
+                        <label for="amount">Amount: $</label>
+                        <input type="number" name="amount" step="0.01" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="reason">Reason:</label>
+                        <input type="text" name="reason" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select name="category" class="form-control">
+                            <option value="food">Food</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="toys">Toys</option>
+                            <option value="big-purchase">Big Purchase</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Deposit</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <form method="POST" action="{% url 'withdraw' %}" class="mb-4">
+                    {% csrf_token %}
+                    <h2>Withdraw</h2>
+                    <div class="form-group">
+                        <label for="amount">Amount: $</label>
+                        <input type="number" name="amount" step="0.01" class="form-control" required>
+                    </div>
+                    <div class "form-group">
+                        <label for="reason">Reason:</label>
+                        <input type="text" name="reason" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category:</label>
+                        <select name="category" class="form-control">
+                            <option value="food">Food</option>
+                            <option value="entertainment">Entertainment</option>
+                            <option value="toys">Toys</option>
+                            <option value="big-purchase">Big Purchase</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Withdraw</button>
+                </form>
+            </div>
         </div>
-        <div class="col-md-6">
-            <form method="POST" action="{% url 'withdraw' %}" class="mb-4">
-                {% csrf_token %}
-                <h2>Withdraw</h2>
-                <div class="form-group">
-                    <label for="amount">Amount: $</label>
-                    <input type="number" name="amount" step="0.01" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="reason">Reason:</label>
-                    <input type="text" name="reason" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="category">Category:</label>
-                    <select name="category" class="form-control">
-                        <option value="food">Food</option>
-                        <option value="entertainment">Entertainment</option>
-                        <option value="toys">Toys</option>
-                        <option value="big-purchase">Big Purchase</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-danger">Withdraw</button>
-            </form>
-        </div>
-    </div>
 
-    <div class="text-center mt-5">
-        <h2>Transaction History</h2>
-        <ul class="list-group">
-            {% for transaction in transactions %}
-                <li class="list-group-item">
-                    {{ transaction.date|date:"F d, Y H:i" }} - {{ transaction.reason }}: ${{ transaction.amount|floatformat:2 }}
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
+        <!-- Transaction History for logged-in users -->
+        <div class="text-center mt-5">
+            <h2>Transaction History</h2>
+            <ul class="list-group">
+                {% for transaction in transactions %}
+                    <li class="list-group-item">
+                        {{ transaction.date|date:"F d, Y H:i" }} - {{ transaction.reason }}: ${{ transaction.amount|floatformat:2 }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <!-- Login Form for unauthenticated users -->
+        <div class="text-center mt-5">
+            <h2>Login</h2>
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.contrib.auth import logout
 from .models import Transaction
 
 @login_required
@@ -40,3 +41,10 @@ def register(request):
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
+
+def custom_logout(request):
+    logout(request)
+    return redirect('home')
+
+def faq(request):
+    return render(request, 'transactions/faq.html')
