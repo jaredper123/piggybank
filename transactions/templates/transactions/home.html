@@ -94,8 +94,18 @@
 
 
         <!-- Cole's Quick attempt at a graph-->
-
-        <canvas id="lineChart" width="1000" height="400"></canvas>
+        <br />
+        <h3 class="text-center">Account Activity</h3>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="chart-container">
+                    <canvas id="lineChart" width="1000" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        
+    
+        
 
         <script>
             var ctx = document.getElementById('lineChart').getContext('2d');
@@ -107,13 +117,23 @@
                 data: {
                     labels: labels,
                     datasets: [{
-                        label: 'My Line Chart',
+                        label: 'Account Value',
                         data: data,
                         borderColor: 'rgb(75, 192, 192)',
                     }]
                 },
                 options: {
-                    responsive: false
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Account Activity',
+                        fontSize: 18
+                    },
                 }
             });
 
@@ -141,11 +161,6 @@
             <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
         </div>
     {% endif %}
-
-    <div>
-        <h1>TEST TEXT</h1>
-
-    </div>
 
 
 
