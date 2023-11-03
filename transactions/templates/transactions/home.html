@@ -94,7 +94,30 @@
 
 
         <!-- Cole's Quick attempt at a graph-->
-        
+
+        <canvas id="lineChart" width="1000" height="400"></canvas>
+
+        <script>
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var labels = JSON.parse('{{ label|safe }}');
+            var data = JSON.parse('{{ data|safe }}');
+
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'My Line Chart',
+                        data: data,
+                        borderColor: 'rgb(75, 192, 192)',
+                    }]
+                },
+                options: {
+                    responsive: false
+                }
+            });
+
+        </script>
         <!-- Transaction History for logged-in users -->
         <div class="text-center mt-5">
             <h2>Transaction History</h2>
@@ -118,4 +141,12 @@
             <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
         </div>
     {% endif %}
+
+    <div>
+        <h1>TEST TEXT</h1>
+
+    </div>
+
+
+
 {% endblock %}

@@ -9,7 +9,22 @@ from .models import Transaction
 def home(request):
     transactions = Transaction.objects.all()
     balance = sum(transaction.amount for transaction in transactions)
-    return render(request, 'transactions/home.html', {'transactions': transactions, 'balance': balance})
+
+    runningTotal = []
+    data = []
+    label = []
+
+
+    for i in range(len(transactions)):
+
+        runningTotal.append(int(transactions[i].amount))
+
+        data.append(sum(runningTotal))
+        
+        label.append(i + 1)
+    
+
+    return render(request, 'transactions/home.html', {'transactions': transactions, 'balance': balance, 'data' : data, 'label' : label})
 
 @login_required
 def deposit(request):
