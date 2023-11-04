@@ -1,12 +1,18 @@
-{% extends "transactions/base.html" %}
+{% extends "transactions/base.html" %} {% block content %}
 
-{% block content %}
-    <div class="text-center mt-4">
-        <h2>Register</h2>
+<div class="card">
+  <div class="card-header">
+    <div class="mt-4">
+      <h2>Register</h2>
     </div>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
+  </div>
+
+  <form method="post">
+    <div class="card-body">{% csrf_token %} {{ form.as_p }}</div>
+    <div class="card-footer">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </div>
+  </form>
+</div>
+
 {% endblock %}

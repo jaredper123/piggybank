@@ -14,57 +14,130 @@
         <!-- Display Piggy Bank information and transaction history for logged-in users -->
         <div class="row mt-5">
             <div class="col-md-6">
-                <form method="POST" action="{% url 'deposit' %}" class="mb-4">
-                    {% csrf_token %}
-                    <h2>Deposit</h2>
-                    <div class="form-group">
-                        <label for="amount">Amount: $</label>
-                        <input type="number" name="amount" step="0.01" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="reason">Reason:</label>
-                        <input type="text" name="reason" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <select name="category" class="form-control">
-                            <option value="food">Food</option>
-                            <option value="entertainment">Entertainment</option>
-                            <option value="toys">Toys</option>
-                            <option value="big-purchase">Big Purchase</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-success">Deposit</button>
-                </form>
+
+                <div class="card">
+                    <form method="POST" action="{% url 'deposit' %}" class="mb-4">
+                        {% csrf_token %}
+
+                        <div class="card-header">
+                            <h2>Deposit</h2>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="amount">Amount: $</label>
+                                <input type="number" name="amount" step="0.01" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reason">Reason:</label>
+                                <input type="text" name="reason" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <select name="category" class="form-control">
+                                    <option value="food">Food</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="toys">Toys</option>
+                                    <option value="big-purchase">Big Purchase</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success">Deposit</button>
+                        </div>
+                    </form>
+                </div>
+                
             </div>
             <div class="col-md-6">
-                <form method="POST" action="{% url 'withdraw' %}" class="mb-4">
-                    {% csrf_token %}
-                    <h2>Withdraw</h2>
-                    <div class="form-group">
-                        <label for="amount">Amount: $</label>
-                        <input type="number" name="amount" step="0.01" class="form-control" required>
-                    </div>
-                    <div class "form-group">
-                        <label for="reason">Reason:</label>
-                        <input type="text" name="reason" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="category">Category:</label>
-                        <select name="category" class="form-control">
-                            <option value="food">Food</option>
-                            <option value="entertainment">Entertainment</option>
-                            <option value="toys">Toys</option>
-                            <option value="big-purchase">Big Purchase</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn btn-danger">Withdraw</button>
-                </form>
+
+                <div class="card">
+
+                    <form method="POST" action="{% url 'withdraw' %}" class="mb-4">
+                        {% csrf_token %}
+                        <div class="card-header">
+                            <h2>Withdraw</h2>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="amount">Amount: $</label>
+                                <input type="number" name="amount" step="0.01" class="form-control" required>
+                            </div>
+                            <div class "form-group">
+                                <label for="reason">Reason:</label>
+                                <input type="text" name="reason" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Category:</label>
+                                <select name="category" class="form-control">
+                                    <option value="food">Food</option>
+                                    <option value="entertainment">Entertainment</option>
+                                    <option value="toys">Toys</option>
+                                    <option value="big-purchase">Big Purchase</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-danger">Withdraw</button>
+                        </div>
+                        
+                    </form>
+                </div>
+
+                
             </div>
         </div>
 
+
+        <!-- Cole's Quick attempt at a graph-->
+        <br />
+        <h3 class="text-center">Account Activity</h3>
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="chart-container">
+                    <canvas id="lineChart" width="1000" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+        
+    
+        
+
+        <script>
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var labels = JSON.parse('{{ label|safe }}');
+            var data = JSON.parse('{{ data|safe }}');
+
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Account Value',
+                        data: data,
+                        borderColor: 'rgb(75, 192, 192)',
+                    }]
+                },
+                options: {
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Account Activity',
+                        fontSize: 18
+                    },
+                }
+            });
+
+        </script>
         <!-- Transaction History for logged-in users -->
         <div class="text-center mt-5">
             <h2>Transaction History</h2>
@@ -88,4 +161,7 @@
             <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
         </div>
     {% endif %}
+
+
+
 {% endblock %}
