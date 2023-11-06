@@ -1,0 +1,34 @@
+{% extends "transactions/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h1 class="card-title text-center">Request Money</h1>
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-group mb-3">
+                                {{ form.amount.label_tag }}
+                                {{ form.amount }}
+                            </div>
+                            <div class="form-group mb-3">
+                                {{ form.reason.label_tag }}
+                                {{ form.reason }}
+                            </div>
+                            <div class="form-group mb-3">
+                                {{ form.category.label_tag }}
+                                {{ form.category }}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Submit Request</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends "transactions/base.html" %}
+{% load static %}
+
+{% block content %}
+    <style>
+        /* Define your CSS styles here */
+        .kid-view-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .kid-view-section {
+            background-color: #f5f5f5; /* Light gray background color */
+            border: 1px solid #e0e0e0; /* Light gray border */
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        .kid-view-heading {
+            color: #333; /* Dark gray heading color */
+            font-size: 24px;
+        }
+
+        .kid-view-button {
+            background-color: #007bff; /* Blue button background color */
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        .kid-view-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+
+        .kid-view-list {
+            background-color: #fff; /* White item background color */
+            border: 1px solid #e0e0e0; /* Light gray border */
+            border-radius: 5px;
+        }
+
+        .kid-view-item {
+            background-color: #fff; /* White item background color */
+            color: #333; /* Dark gray item color */
+            font-size: 16px;
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0; /* Light gray border */
+        }
+
+        .kid-view-link {
+            color: #007bff; /* Blue link color */
+            text-decoration: none;
+        }
+    </style>
+
+    <div class="text-center mt-4">
+        <h1 class="mb-4">Kid View</h1>
+        {% if user.is_authenticated %}
+            <p class="lead">Welcome, {{ user.username }}</p>
+        {% else %}
+            <p class="lead">Welcome to the Kid View</p>
+        {% endif %}
+    </div>
+
+    <div class="kid-view-container">
+        {% if user.is_authenticated %}
+            <!-- Link to Request Money page -->
+            <div class="kid-view-section">
+                <h2 class="kid-view-heading">Request Money</h2>
+                <a href="{% url 'request_money' %}" class="btn kid-view-button">Request Money</a>
+            </div>
+
+            <!-- Transaction History for Kid -->
+            <div class="kid-view-section">
+                <h2 class="kid-view-heading">Transaction History</h2>
+                <ul class="list-group kid-view-list">
+                    {% for transaction in transactions %}
+                        <li class="list-group-item kid-view-item">
+                            {{ transaction.date|date:"F d, Y H:i" }} - {{ transaction.reason }}: ${{ transaction.amount|floatformat:2 }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Money Requests for Kid -->
+            <div class="kid-view-section">
+                <h2 class="kid-view-heading">Money Requests</h2>
+                <ul class="list-group kid-view-list">
+                    {% for money_request in money_requests %}
+                        <li class="list-group-item kid-view-item">
+                            Requested by {{ money_request.requester.username }} - Amount: ${{ money_request.amount|floatformat:2 }} - Reason: {{ money_request.reason }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <!-- Login Form for unauthenticated users -->
+            <div class="kid-view-section">
+                <h2 class="kid-view-heading">Login</h2>
+                <form method="post" action="{% url 'login' %}">
+                    <!-- Login form here -->
+                    <!-- ... -->
+                </form>
+                <p>Don't have an account? <a href="{% url 'register' %}" class="kid-view-link">Register here</a></p>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Link to FAQs page -->
+    <div class="text-center mt-5">
+        <a href="{% url 'faq' %}" class="kid-view-link">FAQs</a>
+    </div>
+</div>
+
+{% endblock %}
